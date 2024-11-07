@@ -5,11 +5,21 @@ function PasswordChecker() {
 
   const [username, setUsername] = useState("#Username123");
   const [password, setPassword] = useState("");
+  const [isPasswordValid, setIsPasswordValid] = useState(false);
+
+
+  function submitForm(e) {
+    e.preventDefault();
+    console.log(isPasswordValid);
+    if (isPasswordValid) {
+      alert("Password is valid");
+    }
+  }
 
   return (
     <div className="container">
       <h1>Check Password Strength</h1>
-      <form onSubmit={(e) => e.preventDefault()}>
+      <form onSubmit={submitForm}>
         <div>
           <label htmlFor="username">Enter username:</label>
           <br/>
@@ -32,7 +42,7 @@ function PasswordChecker() {
         </div>
         <br/>
 
-        <PasswordComplexity username={username} password={password}/>
+        <PasswordComplexity username={username} password={password} setIsPasswordValid={setIsPasswordValid}/>
         <button
           // disabled={!password}
           type="submit">

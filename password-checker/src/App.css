@@ -64,3 +64,12 @@ button:disabled {
   color: #21a821;
   font-weight: 600;
 }
+
+meter {
+  width: 100%;
+}
+
+.error {
+  color: #da2d2d;
+  font-weight: 600;
+}

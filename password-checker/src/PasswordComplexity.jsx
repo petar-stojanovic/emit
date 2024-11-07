@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 
-function PasswordComplexity({username, password}) {
+function PasswordComplexity({username, password, setIsPasswordValid}) {
   const [passwordStatus, setPasswordStatus] = useState({
     hasMinLength: false,
     hasLowercase: false,
@@ -13,13 +13,20 @@ function PasswordComplexity({username, password}) {
   const hasUppercaseRgx = /[A-Z]/
   const hasNumberRgx = /\d/
   const hasSpecialRgx = /[~!@#$%^&*\[\](){}.,|\\:;'"?<>\-_=+\/`]/
-  const passwordMessages = {
+  const errorMessages = {
     hasMinLength: "At least 8 characters",
     hasLowercase: "At least 1 lowercase letter",
     hasUppercase: "At least 1 uppercase letter",
     hasNumber: "At least 1 digit",
     hasSpecial: "At least 1 special character"
   };
+
+  const [additionalErrorMessages, setAdditionalErrorMessages] = useState("")
+
+  // This can be done on the server side too
+  const commonPasswords = [
+    "password", "123456", "123456789", "qwerty", "abc123", "letmein", "admin", "welcome", "12345"
+  ];
 
   useEffect(() => {
     setPasswordStatus({
@@ -29,8 +36,20 @@ function PasswordComplexity({username, password}) {
       hasNumber: hasNumberRgx.test(password),
       hasSpecial: hasSpecialRgx.test(password)
     })
-  }, [username, password]);
 
+    let additionalErrorMessages = "";
+    if (commonPasswords.includes(password)) {
+      additionalErrorMessages = "Password is too common";
+    }
+    if (username && password && username.toLowerCase() === password.toLowerCase()) {
+      additionalErrorMessages = "Password must not be the same as username";
+    }
+
+    const isValid = getProgress() === 5 && !additionalErrorMessages;
+    setIsPasswordValid(isValid);
+
+    setAdditionalErrorMessages(additionalErrorMessages);
+  }, [username, password]);
 
   function getProgress() {
     return Object.values(passwordStatus).filter(it => it).length;
@@ -53,13 +72,14 @@ function PasswordComplexity({username, password}) {
 
   return (
     <div>
+      {additionalErrorMessages && <p className="error">{additionalErrorMessages}</p>}
       <p>Password Strength: <span> {getPasswordStrength()}</span></p>
       <meter low={3} optimum={5} max={5} high={4} value={getProgress()}/>
 
       <p>Password must contain:</p>
       <ul className="">
         {Object.keys(passwordStatus).map((key, index) => (
-          <li key={index} className={passwordStatus[key] ? "green" : "grey"}>{passwordMessages[key]}</li>)
+          <li key={index} className={passwordStatus[key] ? "green" : "grey"}>{errorMessages[key]}</li>)
         )}
       </ul>
     </div>)

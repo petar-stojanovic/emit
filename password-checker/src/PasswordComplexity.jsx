@@ -1,90 +1,44 @@
 import {useEffect, useState} from "react";
 
 function PasswordComplexity({username, password}) {
-  const [errorMessages, setErrorMessages] = useState([]);
-  const [passwordInfo, setPasswordInfo] = useState({
-    score: 0,
-    errorMessages: []
-  });
+  const [passwordStatus, setPasswordStatus] = useState({
+    hasMinLength: false,
+    hasLowercase: false,
+    hasUppercase: false,
+    hasNumber: false,
+    hasSpecial: false
+  })
+
+  const hasLowercaseRgx = /[a-z]/
+  const hasUppercaseRgx = /[A-Z]/
+  const hasNumberRgx = /\d/
+  const hasSpecialRgx = /[~!@#$%^&*\[\](){}.,|\\:;'"?<>\-_=+\/`]/
+  const passwordMessages = {
+    hasMinLength: "At least 8 characters",
+    hasLowercase: "At least 1 lowercase letter",
+    hasUppercase: "At least 1 uppercase letter",
+    hasNumber: "At least 1 digit",
+    hasSpecial: "At least 1 special character"
+  };
 
   useEffect(() => {
-    checkPassword();
+    setPasswordStatus({
+      hasMinLength: password.length >= 8,
+      hasLowercase: hasLowercaseRgx.test(password),
+      hasUppercase: hasUppercaseRgx.test(password),
+      hasNumber: hasNumberRgx.test(password),
+      hasSpecial: hasSpecialRgx.test(password)
+    })
   }, [username, password]);
 
-  function checkPassword() {
-    const messages = [];
-    let score = 0;
 
-    const hasLowercase = /[a-z]/.test(password);
-    const hasUppercase = /[A-Z]/.test(password);
-    const hasNumber = /\d/.test(password);
-    const hasSpecial = /[~!@#$%^&*\[\](){}.,|\\:;'"?<>\-_=+\/`]/.test(password);
-
-    if (password.length < 8) {
-      messages.push("At least 8 characters");
-    } else {
-      score += 1;
-    }
-
-    if (!hasLowercase) {
-      messages.push("At least 1 lowercase letter");
-    } else {
-      score += 1;
-    }
-
-    if (!hasUppercase) {
-      messages.push("At least 1 uppercase letter");
-    } else {
-      score += 1;
-    }
-
-    if (!hasNumber) {
-      messages.push("At least 1 digit");
-    } else {
-      score += 1;
-    }
-
-    if (!hasSpecial) {
-      messages.push("At least 1 special character");
-    } else {
-      score += 1;
-    }
-
-    console.log("score", score);
-
-    setPasswordInfo({
-      score: score,
-      errorMessages: messages
-    })
-
-    setErrorMessages(messages);
-  }
-
-  function getPasswordStrength() {
-    if (passwordInfo.score < 2) {
-      return "Weak";
-    } else if (passwordInfo.score === 2) {
-      return "Moderate";
-    } else if (passwordInfo.score === 3) {
-      return "Strong";
-    } else if (passwordInfo.score === 4) {
-      return "Excellent";
-    }
-  }
-
-  return (<div>
-      {/*<ul>*/}
-      {/*  <li>At least 8 characters</li>*/}
-      {/*  <li>At least 1 lowercase letter</li>*/}
-      {/*  <li>At least 1 uppercase letter</li>*/}
-      {/*  <li>At least 1 number</li>*/}
-      {/*  <li>At least 1 special character</li>*/}
-      {/*</ul>*/}
-
+  return (
+    <div>
       <h3>Password must contain:</h3>
-      <ul className="error">
-        {errorMessages.map((message, index) => (<li key={index}>{message}
-          </li>))}
+      <ul className="">
+        {Object.keys(passwordStatus).map((key, index) => (
+          <li key={index} className={passwordStatus[key] ? "green" : "grey"}>{passwordMessages[key]}</li>)
+        )}
       </ul>
     </div>)
 }

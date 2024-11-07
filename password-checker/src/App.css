@@ -55,8 +55,12 @@ button:disabled {
   pointer-events: none;
 }
 
-.error {
-  color: #dd2a2a;
+.grey {
+  color: grey;
   font-weight: 600;
-  font-size: 1.05rem;
+}
+
+.green {
+  color: #21a821;
+  font-weight: 600;
 }

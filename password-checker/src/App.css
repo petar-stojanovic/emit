@@ -39,7 +39,7 @@ button {
   width: 100%;
   font-size: 1.15rem;
   border-radius: 10rem;
-  padding: 0.5rem;
+  padding: 0.5rem 2rem;
   margin-top: 2rem;
   background-color: #0e4ac1;
   color: #ececec;
@@ -73,3 +73,11 @@ meter {
   color: #da2d2d;
   font-weight: 600;
 }
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+

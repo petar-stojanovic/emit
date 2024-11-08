@@ -10,7 +10,6 @@ function PasswordChecker() {
 
   function submitForm(e) {
     e.preventDefault();
-    console.log(isPasswordValid);
     if (isPasswordValid) {
       alert("Password is valid");
     }
@@ -18,6 +17,7 @@ function PasswordChecker() {
 
   return (
     <div className="container">
+      <small>Version 2</small>
       <h1>Check Password Strength</h1>
       <form onSubmit={submitForm}>
         <div>

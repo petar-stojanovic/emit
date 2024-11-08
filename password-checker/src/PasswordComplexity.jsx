@@ -44,10 +44,10 @@ function PasswordComplexity({username, password, setIsPasswordValid}) {
     if (username && password && username.toLowerCase() === password.toLowerCase()) {
       additionalErrorMessages = "Password must not be the same as username";
     }
+    setAdditionalErrorMessages(additionalErrorMessages);
 
     const isValid = getProgress() === 5 && !additionalErrorMessages;
     setIsPasswordValid(isValid);
-
     setAdditionalErrorMessages(additionalErrorMessages);
   }, [username, password]);
 

@@ -3,14 +3,12 @@
   --color-text: #181818;
 
   --sidebar-background: #f6f6f6;
-  --link-color: #0077cc;
 }
 
 /*@media (prefers-color-scheme: dark) {*/
 /*  :root {*/
 /*    --color-background: #181818;*/
 /*    --color-text: #fbfbfb;*/
-/*    --link-color: #0099ff;*/
 
 /*    --sidebar-background: #191818;*/
 /*  }*/
@@ -54,7 +52,7 @@ body {
 }
 
 a {
-  color: var(--link-color);
+  color: var(--color-text);
   text-decoration: none;
 }
 

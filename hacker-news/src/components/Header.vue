@@ -1,5 +1,5 @@
 <script setup>
-import {AkSettingsHorizontal} from '@kalimahapps/vue-icons';
+import {AkSettingsHorizontal, BySearch} from '@kalimahapps/vue-icons';
 </script>
 
 <template>
@@ -10,8 +10,12 @@ import {AkSettingsHorizontal} from '@kalimahapps/vue-icons';
     </div>
 
     <div class="search flex align-center justify-center">
+      <BySearch class="search-icon"/>
       <input type="text" placeholder="Search stories by title, url or author"/>
-      <span>by Algolia</span>
+      <span>
+        <small>by</small>
+        <img class="algolia-logo" src="@/assets/algolia.png" alt="Algolia Logo"/>
+      </span>
     </div>
 
     <div>
@@ -23,12 +27,6 @@ import {AkSettingsHorizontal} from '@kalimahapps/vue-icons';
 
 <style scoped>
 nav {
-  position: fixed;
-  width: 100%;
-  height: 6rem;
-  top: 0;
-  background-color: var(--color-background);
-  z-index: 10;
   display: flex;
   gap: 1rem;
   justify-content: space-between;
@@ -45,30 +43,45 @@ nav {
 }
 
 .search {
-  gap: 0.5rem;
-  flex-grow: 1;
+  gap: 1rem;
   width: 100%;
   padding: 0.5rem;
+  position: relative;
 }
 
 .search input {
   width: 100%;
   border-radius: 10rem;
-  padding: 0.5rem 1rem;
+  padding: 0.75rem 0 0.75rem 2.75rem;
 }
 
 .search span {
   white-space: nowrap;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.algolia-logo {
+  max-height: 2rem;
 }
 
 .icon {
   font-size: 2rem;
+  margin-left: 2rem;
+}
+
+.search-icon {
+  position: absolute;
+  font-size: 1.25rem;
+  color: orangered;
+  left: 1.75rem;
 }
 
 .logo-text {
   color: gray;
   font-weight: 500;
   font-size: 1rem;
-  line-height: 1.15rem;
+  line-height: 1.1rem;
 }
 </style>

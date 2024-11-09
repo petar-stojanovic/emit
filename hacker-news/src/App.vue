@@ -19,6 +19,15 @@ import Sidebar from "@/components/Sidebar.vue";
 
 <style scoped>
 
+header {
+  position: fixed;
+  width: 100%;
+  height: 6rem;
+  top: 0;
+  background-color: var(--color-background);
+  z-index: 10;
+}
+
 main {
   margin: 6rem 0 0 10rem;
   padding: 0 1rem;

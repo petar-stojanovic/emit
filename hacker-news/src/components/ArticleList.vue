@@ -10,9 +10,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div v-for="article of searchResult.hits" :key="article.objectID">
-    <Article :article="article"/>
-  </div>
+  <Article v-for="article of searchResult.hits" :key="article.objectID" :article="article"/>
 
 </template>
 

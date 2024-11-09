@@ -1,8 +1,12 @@
 <script setup>
 
-import {onMounted, toRaw} from "vue";
-import {AkStar, BsShare} from "@kalimahapps/vue-icons";
+import {computed, onMounted, toRaw} from "vue";
+import {AkStar, BsShare, AkHeart, AkPerson, BxTimeFive} from "@kalimahapps/vue-icons";
+import {formatDistanceToNow} from "date-fns/formatDistanceToNow";
 
+const formattedDate = computed(() => {
+  return formatDistanceToNow(new Date(article.created_at), {addSuffix: true});
+});
 const {article} = defineProps(["article"]);
 onMounted(() => {
   console.log("ARTICLE", toRaw(article));
@@ -10,24 +14,65 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="article">
-    <h1>{{ article.author }}</h1>
-    <div>{{ article.title }}</div>
-    <div>
-      <div>{{ article.points }}</div>
-      <div>{{ article.author }}</div>
-      <div>{{ article.created_at }}</div>
-      <a :href="article.url" target="_blank">{{ article.url.split('/')[2] }}</a>
+  <div class="article flex align-center space-between">
+    <div class="article-details">
+      <div class="title">{{ article.title }}</div>
+
+      <div class=" flex gap-1">
+        <span class="flex align-center">
+          <AkHeart class="icon"/> {{ article.points }}</span>
+        <span class="flex align-center">
+          <AkPerson class="icon"/> {{ article.author }}
+        </span>
+        <span class="flex align-center">
+          <BxTimeFive class="icon"/>
+          {{ formattedDate }}
+        </span>
+        <a :href="article.url" target="_blank">({{ article.url.split('/')[2] }})</a>
+      </div>
     </div>
 
-    <div>
-      <span>{{ article.num_comments }}</span>
-      <AkStar class="icon"/>
+    <div class="flex align-center gap-1">
+      <span class="num-comments">{{ article.num_comments }}</span>
       <BsShare class="icon"/>
+      <AkStar class="icon"/>
     </div>
   </div>
 </template>
 
 <style scoped>
 
+.article {
+  padding: 1rem;
+  border-bottom: 1px solid #ccc;
+}
+
+.article-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+a {
+  color: #1c6f9a;
+}
+
+.gap-1 {
+  gap: 1rem;
+}
+
+.icon {
+  font-size: 1.25rem;
+  margin-right: 0.5rem;
+}
+
+.num-comments {
+  padding: 0.25rem;
+  border-radius: 0.25rem;
+  background: #b6b5b5;
+}
 </style>

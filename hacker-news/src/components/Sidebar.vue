@@ -1,12 +1,14 @@
 <script setup>
-import {BxSolidHot} from '@kalimahapps/vue-icons';
-import {AkHomeAlt1} from '@kalimahapps/vue-icons';
-import {AnFilledSound} from '@kalimahapps/vue-icons';
-import {MdQuestionAnswer} from '@kalimahapps/vue-icons';
-import {BsLightbulb} from '@kalimahapps/vue-icons';
-import {AkMoney} from '@kalimahapps/vue-icons';
-import {AkPerson} from '@kalimahapps/vue-icons';
-import {AkStar} from '@kalimahapps/vue-icons';
+import {
+  BxSolidHot,
+  AkHomeAlt1,
+  AnFilledSound,
+  MdQuestionAnswer,
+  BsLightbulb,
+  AkMoney,
+  AkPerson,
+  AkStar
+} from '@kalimahapps/vue-icons';
 </script>
 
 <template>

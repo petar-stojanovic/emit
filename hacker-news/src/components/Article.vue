@@ -15,10 +15,10 @@ onMounted(() => {
 
 <template>
   <div class="article flex align-center space-between">
-    <div class="article-details">
+    <div class="article-details gap-1">
       <div class="title">{{ article.title }}</div>
 
-      <div class=" flex gap-1">
+      <div class="article-metadata flex gap-1">
         <span class="flex align-center">
           <AkHeart class="icon"/> {{ article.points }}</span>
         <span class="flex align-center">
@@ -53,8 +53,8 @@ onMounted(() => {
 }
 
 .title {
-  font-size: 1.2rem;
-  font-weight: bold;
+  font-size: 1.1rem;
+  font-weight: 600;
 }
 
 a {
@@ -66,7 +66,7 @@ a {
 }
 
 .icon {
-  font-size: 1.25rem;
+  font-size: 1.15rem;
   margin-right: 0.5rem;
 }
 
@@ -74,5 +74,9 @@ a {
   padding: 0.25rem;
   border-radius: 0.25rem;
   background: #b6b5b5;
+}
+
+.article-metadata {
+  font-size: 0.85rem;
 }
 </style>

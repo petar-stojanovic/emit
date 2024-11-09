@@ -8,18 +8,21 @@ import Sidebar from "@/components/Sidebar.vue";
     <Header/>
   </header>
 
-  <main>
-    <aside>
-      <Sidebar/>
-    </aside>
+  <aside>
+    <Sidebar/>
+  </aside>
 
-    <main>
-      <router-view/>
-    </main>
+  <main>
+    <router-view/>
   </main>
 </template>
 
 <style scoped>
+
+main {
+  margin-left: 10rem;
+  padding: 0 1rem;
+}
 
 @media (min-width: 1024px) {
 

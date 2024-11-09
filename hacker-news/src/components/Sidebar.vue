@@ -1,11 +1,18 @@
 <script setup>
 import {BxSolidHot} from '@kalimahapps/vue-icons';
+import {AkHomeAlt1} from '@kalimahapps/vue-icons';
+import {AnFilledSound} from '@kalimahapps/vue-icons';
+import {MdQuestionAnswer} from '@kalimahapps/vue-icons';
+import {BsLightbulb} from '@kalimahapps/vue-icons';
+import {AkMoney} from '@kalimahapps/vue-icons';
+import {AkPerson} from '@kalimahapps/vue-icons';
+import {AkStar} from '@kalimahapps/vue-icons';
 </script>
 
 <template>
   <div class="sidebar">
     <router-link class="link" to="">
-      <BxSolidHot class="icon"/>
+      <AkHomeAlt1 class="icon"/>
       All
     </router-link>
     <router-link class="link" to="">
@@ -13,29 +20,29 @@ import {BxSolidHot} from '@kalimahapps/vue-icons';
       Hot
     </router-link>
     <router-link class="link" to="">
-      <BxSolidHot class="icon"/>
+      <AnFilledSound class="icon"/>
       Show HN
     </router-link>
     <router-link class="link" to="">
-      <BxSolidHot class="icon"/>
+      <MdQuestionAnswer class="icon"/>
       Ask HN
     </router-link>
     <router-link class="link" to="">
-      <BxSolidHot class="icon"/>
+      <BsLightbulb class="icon"/>
       Polls
     </router-link>
     <router-link class="link" to="">
-      <BxSolidHot class="icon"/>
+      <AkMoney class="icon"/>
       Jobs
     </router-link>
 
     <hr/>
     <router-link class="link" to="">
-      <BxSolidHot class="icon"/>
+      <AkPerson class="icon"/>
       Shipow
     </router-link>
     <router-link class="link" to="">
-      <BxSolidHot class="icon"/>
+      <AkStar class="icon"/>
       Starred
     </router-link>
 

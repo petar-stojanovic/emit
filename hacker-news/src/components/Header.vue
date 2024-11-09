@@ -23,6 +23,12 @@ import {AkSettingsHorizontal} from '@kalimahapps/vue-icons';
 
 <style scoped>
 nav {
+  position: fixed;
+  width: 100%;
+  height: 6rem;
+  top: 0;
+  background-color: var(--color-background);
+  z-index: 10;
   display: flex;
   gap: 1rem;
   justify-content: space-between;

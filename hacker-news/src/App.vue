@@ -20,7 +20,7 @@ import Sidebar from "@/components/Sidebar.vue";
 <style scoped>
 
 main {
-  margin-left: 10rem;
+  margin: 6rem 0 0 10rem;
   padding: 0 1rem;
 }
 

@@ -1,20 +1,36 @@
 <script setup>
-import {onMounted} from "vue";
+import {onMounted, ref} from "vue";
+import ArticleList from "@/components/ArticleList.vue";
 
+const searchResult = ref(null);
+const isLoading = ref(true);
+const error = ref(null);
 onMounted(() => {
-  // fetchNews();
+  fetchNews();
 });
 
 const fetchNews = async () => {
-  const response = await fetch('http://hn.algolia.com/api/v1/search_by_date');
-  const data = await response.json();
-  console.log(data);
-}
-
+  try {
+    const response = await fetch('http://hn.algolia.com/api/v1/search?tags=(story,comment,poll,job)');
+    const data = await response.json();
+    console.log(data);
+    searchResult.value = data;
+  } catch (err) {
+    error.value = 'Failed to fetch news';
+    console.error(err);
+  } finally {
+    isLoading.value = false;
+  }
+};
 </script>
 
 <template>
-asd
+  <div v-if="isLoading">Loading...</div>
+  <div v-else-if="error">{{ error }}</div>
+  <div v-else>
+
+    <ArticleList :searchResult="searchResult"/>
+  </div>
 </template>
 
 <style scoped>

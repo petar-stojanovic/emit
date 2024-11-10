@@ -5,10 +5,12 @@ import Searchbar from "@/components/Searchbar.vue";
 
 <template>
   <nav>
-    <div class="logo">
-      <img src="@/assets/logo.png" alt="Logo"/>
-      <div class="logo-text">Search Hacker News</div>
-    </div>
+    <router-link to="/">
+      <div class="logo">
+        <img src="@/assets/logo.png" alt="Logo"/>
+        <div class="logo-text">Search Hacker News</div>
+      </div>
+    </router-link>
 
     <div class="search flex align-center justify-center">
       <Searchbar/>

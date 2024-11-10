@@ -30,7 +30,7 @@ header {
 
 main {
   margin: 6rem 0 0 10rem;
-  padding: 0 1rem;
+  padding: 2rem;
 }
 
 @media (min-width: 1024px) {

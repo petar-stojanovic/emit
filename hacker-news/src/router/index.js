@@ -1,11 +1,11 @@
-import {createMemoryHistory, createRouter, createWebHistory} from 'vue-router'
+import {createRouter, createWebHistory} from 'vue-router'
 
-// import AboutView from './AboutView.vue'
 import HomeView from "@/views/HomeView.vue";
+import PostDetails from "@/views/PostDetails.vue";
 
 const routes = [
-  { path: '/', component: HomeView },
-  // { path: '/about', component: AboutView },
+  {path: '/', component: HomeView},
+  {path: '/post/:id', component: PostDetails},
 ]
 
 const router = createRouter({

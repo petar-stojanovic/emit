@@ -10,7 +10,6 @@ const formattedDate = computed(() => {
 const {article} = defineProps(["article"]);
 onMounted(() => {
   console.log("ARTICLE", toRaw(article));
-  console.log("article title", article.title);
 })
 </script>
 

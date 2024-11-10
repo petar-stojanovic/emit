@@ -1,5 +1,6 @@
 <script setup>
-import {AkSettingsHorizontal, BySearch} from '@kalimahapps/vue-icons';
+import {AkSettingsHorizontal} from '@kalimahapps/vue-icons';
+import Searchbar from "@/components/Searchbar.vue";
 </script>
 
 <template>
@@ -10,12 +11,7 @@ import {AkSettingsHorizontal, BySearch} from '@kalimahapps/vue-icons';
     </div>
 
     <div class="search flex align-center justify-center">
-      <BySearch class="search-icon"/>
-      <input type="text" placeholder="Search stories by title, url or author"/>
-      <span>
-        <small>by</small>
-        <img class="algolia-logo" src="@/assets/algolia.png" alt="Algolia Logo"/>
-      </span>
+      <Searchbar/>
     </div>
 
     <div>
@@ -47,41 +43,5 @@ nav {
   width: 100%;
   padding: 0.5rem;
   position: relative;
-}
-
-.search input {
-  width: 100%;
-  border-radius: 10rem;
-  padding: 0.75rem 0 0.75rem 2.75rem;
-}
-
-.search span {
-  white-space: nowrap;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.algolia-logo {
-  max-height: 2rem;
-}
-
-.icon {
-  font-size: 2rem;
-  margin-left: 2rem;
-}
-
-.search-icon {
-  position: absolute;
-  font-size: 1.25rem;
-  color: orangered;
-  left: 1.75rem;
-}
-
-.logo-text {
-  color: gray;
-  font-weight: 500;
-  font-size: 1rem;
-  line-height: 1.1rem;
 }
 </style>

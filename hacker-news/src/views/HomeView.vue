@@ -1,17 +1,24 @@
 <script setup>
-import {onMounted, ref} from "vue";
+import {onMounted, ref, watch} from "vue";
 import ArticleList from "@/components/ArticleList.vue";
+import {useRoute} from "vue-router";
 
 const searchResult = ref(null);
 const isLoading = ref(true);
 const error = ref(null);
+const route = useRoute();
+
 onMounted(() => {
-  fetchNews();
+  fetchNews(route.query.q || "");
 });
 
-const fetchNews = async () => {
+const fetchNews = async (query) => {
   try {
-    const response = await fetch('http://hn.algolia.com/api/v1/search?tags=(story,comment,poll,job)');
+    let url = 'http://hn.algolia.com/api/v1/search?tags=(story,poll,job)';
+    if(query) {
+      url += `&query=${query}`;
+    }
+    const response = await fetch(url);
     const data = await response.json();
     console.log(data);
     searchResult.value = data;
@@ -22,6 +29,14 @@ const fetchNews = async () => {
     isLoading.value = false;
   }
 };
+
+watch(
+    () => route.query.q,
+    (query) => {
+      fetchNews(query);
+    },
+    {immediate: true}
+);
 </script>
 
 <template>

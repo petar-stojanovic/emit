@@ -10,6 +10,7 @@ const formattedDate = computed(() => {
 const {article} = defineProps(["article"]);
 onMounted(() => {
   console.log("ARTICLE", toRaw(article));
+  console.log("article title", article.title);
 })
 </script>
 
@@ -28,7 +29,7 @@ onMounted(() => {
           <BxTimeFive class="icon"/>
           {{ formattedDate }}
         </span>
-        <a :href="article.url" target="_blank">({{ article.url.split('/')[2] }})</a>
+        <a v-if="article.url" :href="article.url" target="_blank">({{ article.url.split('/')[2] }})</a>
       </div>
     </div>
 

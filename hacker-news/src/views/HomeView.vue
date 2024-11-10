@@ -14,6 +14,7 @@ onMounted(() => {
 
 const fetchNews = async (query) => {
   try {
+    //TODO: Refactor. Use Repository.
     let url = 'http://hn.algolia.com/api/v1/search?tags=(story,poll,job)';
     if(query) {
       url += `&query=${query}`;

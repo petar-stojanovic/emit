@@ -11,6 +11,7 @@ const error = ref(null);
 
 const fetchPostDetails = async () => {
   try {
+    //TODO: Refactor. Use Repository.
     let url = `http://hn.algolia.com/api/v1/items/${id}`;
 
     const response = await fetch(url);

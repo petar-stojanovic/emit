@@ -2,6 +2,7 @@
 import {BySearch} from "@kalimahapps/vue-icons";
 import {ref, watch} from "vue";
 import {useRoute, useRouter} from "vue-router";
+import debounce from 'lodash.debounce'
 
 const router = useRouter();
 const route = useRoute();  // This gives you the current route, including the query params
@@ -15,9 +16,9 @@ watch(
     {immediate: true}
 );
 
-const onSearch = () => {
+const onSearch = debounce(() => {
   router.push({path: '/', query: {q: searchTerm.value}});
-};
+}, 300);
 
 </script>
 

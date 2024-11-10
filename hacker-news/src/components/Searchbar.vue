@@ -1,17 +1,35 @@
 <script setup>
-
 import {BySearch} from "@kalimahapps/vue-icons";
+import {ref, watch} from "vue";
+import {useRoute, useRouter} from "vue-router";
+
+const router = useRouter();
+const route = useRoute();  // This gives you the current route, including the query params
+const searchTerm = ref(route.query.q || "");
+
+watch(
+    () => route.query.q,
+    (newQuery) => {
+      searchTerm.value = newQuery || "";
+    },
+    {immediate: true}
+);
+
+const onSearch = () => {
+  router.push({path: '/', query: {q: searchTerm.value}});
+};
+
 </script>
 
 <template>
   <BySearch class="search-icon"/>
-  <input type="text" placeholder="Search stories by title, url or author"/>
+  <input type="text" v-model="searchTerm" @input="onSearch" placeholder="Search stories by title, url or author"/>
   <span>
-        <small>by</small>
-        <a href="https://algolia.com" target="_blank">
-          <img class="algolia-logo" src="@/assets/algolia.png" alt="Algolia Logo"/>
-        </a>
-      </span>
+    <small>by</small>
+      <a href="https://algolia.com" target="_blank">
+        <img class="algolia-logo" src="@/assets/algolia.png" alt="Algolia Logo"/>
+      </a>
+  </span>
 </template>
 
 <style scoped>

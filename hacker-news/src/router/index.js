@@ -5,7 +5,7 @@ import PostDetails from "@/views/PostDetails.vue";
 
 const routes = [
   {path: '/', component: HomeView},
-  {path: '/post/:id', component: PostDetails},
+  {path: '/post/:id', component: PostDetails, props: true},
 ]
 
 const router = createRouter({

@@ -5,7 +5,7 @@ import {useRoute, useRouter} from "vue-router";
 import debounce from 'lodash.debounce'
 
 const router = useRouter();
-const route = useRoute();  // This gives you the current route, including the query params
+const route = useRoute();
 const searchTerm = ref(route.query.q || "");
 
 watch(

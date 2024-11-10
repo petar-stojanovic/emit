@@ -4,10 +4,13 @@ import {computed, onMounted, toRaw} from "vue";
 import {AkStar, BsShare, AkHeart, AkPerson, BxTimeFive} from "@kalimahapps/vue-icons";
 import {formatDistanceToNow} from "date-fns/formatDistanceToNow";
 
+const {article} = defineProps(["article"]);
+
 const formattedDate = computed(() => {
   return formatDistanceToNow(new Date(article.created_at), {addSuffix: true});
 });
-const {article} = defineProps(["article"]);
+
+
 onMounted(() => {
   console.log("ARTICLE", toRaw(article));
 })
@@ -16,7 +19,9 @@ onMounted(() => {
 <template>
   <div class="article flex align-center space-between">
     <div class="article-details gap-1">
-      <div class="title">{{ article.title }}</div>
+      <router-link :to="`/post/${article.objectID}`">
+        <div class="title">{{ article.title }}</div>
+      </router-link>
 
       <div class="article-metadata flex gap-1">
         <span class="flex align-center">
@@ -53,8 +58,13 @@ onMounted(() => {
 }
 
 .title {
+  color: var(--color-text);
   font-size: 1.1rem;
   font-weight: 600;
+}
+
+.title:hover {
+  text-decoration: underline;
 }
 
 a {

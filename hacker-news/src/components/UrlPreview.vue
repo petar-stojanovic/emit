@@ -3,7 +3,7 @@ import {useFetch} from "@/composables/useFetch.js";
 
 const {url} = defineProps(["url"]);
 
-const {data, error, loading} = useFetch(`https://api.linkpreview.net/?q=${url}`, {
+const {data, error, isLoading} = useFetch(`https://api.linkpreview.net/?q=${url}`, {
   headers: {
     // TODO: SECURE API KEY
     'X-Linkpreview-Api-Key': "2e9931eb9b55f6dbd252181879572ae1",
@@ -12,7 +12,7 @@ const {data, error, loading} = useFetch(`https://api.linkpreview.net/?q=${url}`,
 </script>
 
 <template>
-  <div v-if="loading">Loading...</div>
+  <div v-if="isLoading">Loading...</div>
 
   <div v-else-if="data">
     <div class="preview-card">

@@ -3,12 +3,12 @@ import {ref, watchEffect, toValue} from 'vue'
 export function useFetch(url, config = {}) {
   const data = ref(null)
   const error = ref(null)
-  const loading = ref(false)
+  const isLoading = ref(false)
 
   watchEffect(async () => {
     data.value = null
     error.value = null
-    loading.value = true
+    isLoading.value = true
 
     const urlValue = toValue(url)
 
@@ -18,9 +18,9 @@ export function useFetch(url, config = {}) {
     } catch (e) {
       error.value = e
     } finally {
-      loading.value = false
+      isLoading.value = false
     }
   })
 
-  return {data, error, loading}
+  return {data, error, isLoading}
 }

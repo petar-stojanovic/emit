@@ -3,10 +3,12 @@
 import {onMounted, ref} from "vue";
 import Comment from "@/components/Comment.vue";
 import useLocalStorage from "@/composables/useLocalStorage.js";
+import UrlPreview from "@/components/UrlPreview.vue";
 
 const {id} = defineProps(["id"]);
 const isLoading = ref(false);
 const error = ref(null);
+const showPreview = ref(false);
 
 const post = useLocalStorage(null, `post-${id}`);
 
@@ -27,6 +29,7 @@ const fetchPostDetails = async () => {
   }
 }
 
+
 onMounted(() => {
   if (!post.value) {
     isLoading.value = true;
@@ -42,7 +45,9 @@ onMounted(() => {
       {{ post.title }}
       <a v-if="post.url" :href="post.url" target="_blank">({{ post.url.split('/')[2] }})</a>
     </div>
+    <button v-if="!showPreview" @click="showPreview = true"> Show Preview</button>
 
+    <UrlPreview v-if="showPreview" :url="post.url"/>
 
     <div class="flex gap-1">
       {{ post.points }} points
@@ -76,7 +81,7 @@ a:hover {
   text-decoration: underline;
 }
 
-.post-details {
+button {
   margin-bottom: 1rem;
 }
 

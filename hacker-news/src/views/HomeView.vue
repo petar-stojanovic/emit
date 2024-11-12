@@ -1,35 +1,37 @@
 <script setup>
-import {onMounted, ref, watch} from "vue";
+import {ref, watch} from "vue";
 import ArticleList from "@/components/ArticleList.vue";
 import {useRoute} from "vue-router";
 import useLocalStorage from "@/composables/useLocalStorage.js";
 
-const searchResult = useLocalStorage('', "searchResult");
+const route = useRoute();
 const isLoading = ref(true);
 const error = ref(null);
-const route = useRoute();
+const searchResult = ref(null);
 
-
-onMounted(() => {
-  fetchNews(route.query.q || "");
-});
 
 const fetchNews = async (query) => {
   try {
-    if (searchResult.value) {
+    const localStorageKey = `searchResult-${query}`;
+    const cachedResult = useLocalStorage(null, localStorageKey);
+
+    if (cachedResult.value) {
       console.log('Using cached data');
-      isLoading.value = false;
-      return;
+      searchResult.value = cachedResult.value;
+    } else {
+
+      let url = 'http://hn.algolia.com/api/v1/search?tags=(story,poll,job)';
+      if (query) {
+        url += `&query=${query}`;
+      }
+      const response = await fetch(url);
+      const data = await response.json();
+      console.log("FETCHING DATA", data);
+
+      searchResult.value = data;
+      cachedResult.value = data;
     }
-    //TODO: Refactor. Use Repository.
-    let url = 'http://hn.algolia.com/api/v1/search?tags=(story,poll,job)';
-    if (query) {
-      url += `&query=${query}`;
-    }
-    const response = await fetch(url);
-    const data = await response.json();
-    console.log(data);
-    searchResult.value = data;
+
   } catch (err) {
     error.value = 'Failed to fetch news';
     console.error(err);
@@ -42,7 +44,7 @@ watch(
     () => route.query.q,
     (query) => {
       isLoading.value = true;
-      fetchNews(query);
+      fetchNews(query || '');
     },
     {immediate: true}
 );

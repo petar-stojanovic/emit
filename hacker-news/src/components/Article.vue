@@ -12,7 +12,7 @@ const formattedDate = computed(() => {
 
 
 onMounted(() => {
-  console.log("ARTICLE", toRaw(article));
+  // console.log("ARTICLE", toRaw(article));
 })
 </script>
 

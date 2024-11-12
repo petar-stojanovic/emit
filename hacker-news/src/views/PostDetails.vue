@@ -1,13 +1,14 @@
 <script setup>
 
 import {onMounted, ref} from "vue";
-import {AkHeart, AkPerson, BxTimeFive} from "@kalimahapps/vue-icons";
 import Comment from "@/components/Comment.vue";
+import useLocalStorage from "@/composables/useLocalStorage.js";
 
 const {id} = defineProps(["id"]);
-const post = ref(null);
-const isLoading = ref(true);
+const isLoading = ref(false);
 const error = ref(null);
+
+const post = useLocalStorage(null, `post-${id}`);
 
 const fetchPostDetails = async () => {
   try {
@@ -27,15 +28,16 @@ const fetchPostDetails = async () => {
 }
 
 onMounted(() => {
-  fetchPostDetails();
+  if (!post.value) {
+    isLoading.value = true;
+    fetchPostDetails();
+  }
 });
 </script>
 
 <template>
   <div v-if="isLoading">Loading...</div>
-  <div v-else-if="error">{{ error }}</div>
-  <div v-else>
-
+  <div v-else-if="post">
     <div class="title">
       {{ post.title }}
       <a v-if="post.url" :href="post.url" target="_blank">({{ post.url.split('/')[2] }})</a>
@@ -51,6 +53,9 @@ onMounted(() => {
     <div class="comments">
       <Comment v-for="comment in post.children" :key="comment.id" :comment="comment"/>
     </div>
+  </div>
+  <div v-else>
+    {{ error }}
   </div>
 </template>
 

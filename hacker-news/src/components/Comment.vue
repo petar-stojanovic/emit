@@ -2,7 +2,6 @@
 
 const {comment} = defineProps(["comment"]);
 
-console.log(comment);
 </script>
 
 <template>

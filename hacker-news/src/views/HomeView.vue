@@ -52,9 +52,11 @@ watch(
 
 <template>
   <div v-if="isLoading">Loading...</div>
-  <div v-else-if="error">{{ error }}</div>
-  <div v-else>
+  <div v-else-if="searchResult">
     <ArticleList :searchResult="searchResult"/>
+  </div>
+  <div v-else>
+    {{ error }}
   </div>
 </template>
 

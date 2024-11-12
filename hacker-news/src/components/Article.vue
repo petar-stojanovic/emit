@@ -3,6 +3,7 @@
 import {computed, onMounted, toRaw} from "vue";
 import {AkStar, BsShare, AkHeart, AkPerson, BxTimeFive} from "@kalimahapps/vue-icons";
 import {formatDistanceToNow} from "date-fns/formatDistanceToNow";
+import {getLinkPreview} from "link-preview-js";
 
 const {article} = defineProps(["article"]);
 
@@ -14,6 +15,19 @@ const formattedDate = computed(() => {
 onMounted(() => {
   // console.log("ARTICLE", toRaw(article));
 })
+
+const previewLink = async () => {
+  console.log('Preview link');
+  try {
+    const linkPreview = await getLinkPreview(article.url);
+
+    console.log(linkPreview);
+  } catch (err) {
+    console.error(err);
+  } finally {
+  }
+}
+
 </script>
 
 <template>
@@ -33,7 +47,9 @@ onMounted(() => {
           <BxTimeFive class="icon"/>
           {{ formattedDate }}
         </span>
-        <a v-if="article.url" :href="article.url" target="_blank">({{ article.url.split('/')[2] }})</a>
+        <a @mouseover="previewLink" v-if="article.url" :href="article.url" target="_blank">({{
+            article.url.split('/')[2]
+          }})</a>
       </div>
     </div>
 

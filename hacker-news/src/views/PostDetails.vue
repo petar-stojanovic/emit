@@ -13,7 +13,7 @@ const post = useLocalStorage(null, `post-${id}`);
 const fetchPostDetails = async () => {
   try {
     //TODO: Refactor. Use Repository.
-    let url = `http://hn.algolia.com/api/v1/items/${id}`;
+    let url = `/api/items/${id}`;
 
     const response = await fetch(url);
     const data = await response.json();

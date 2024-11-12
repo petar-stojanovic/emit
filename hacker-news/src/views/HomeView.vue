@@ -20,7 +20,7 @@ const fetchNews = async (query) => {
       searchResult.value = cachedResult.value;
     } else {
 
-      let url = 'http://hn.algolia.com/api/v1/search?tags=(story,poll,job)';
+      let url = '/api/search?tags=(story,poll,job)';
       if (query) {
         url += `&query=${query}`;
       }

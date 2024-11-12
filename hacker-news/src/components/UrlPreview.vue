@@ -1,31 +1,14 @@
 <script setup>
-import {onMounted, ref} from "vue";
+import {useFetch} from "@/composables/useFetch.js";
 
 const {url} = defineProps(["url"]);
-const loading = ref(true);
-const data = ref(null);
 
-onMounted(() => {
-  fetchUrlDetails();
-});
-
-const fetchUrlDetails = async () => {
-  try {
+const {data, error, loading} = useFetch(`https://api.linkpreview.net/?q=${url}`, {
+  headers: {
     // TODO: SECURE API KEY
-    const response = await fetch(`https://api.linkpreview.net/?q=${url}`, {
-      headers: {
-        'X-Linkpreview-Api-Key': "2e9931eb9b55f6dbd252181879572ae1",
-      },
-    });
-
-    data.value = await response.json();
-  } catch (err) {
-    console.error(err);
-  } finally {
-    loading.value = false;
-  }
-}
-
+    'X-Linkpreview-Api-Key': "2e9931eb9b55f6dbd252181879572ae1",
+  },
+});
 </script>
 
 <template>
@@ -43,7 +26,7 @@ const fetchUrlDetails = async () => {
   </div>
 
   <div v-else>
-    No data
+    {{ error ?? "No Data" }}
   </div>
 </template>
 

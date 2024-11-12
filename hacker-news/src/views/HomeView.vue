@@ -2,11 +2,13 @@
 import {onMounted, ref, watch} from "vue";
 import ArticleList from "@/components/ArticleList.vue";
 import {useRoute} from "vue-router";
+import useLocalStorage from "@/composables/useLocalStorage.js";
 
-const searchResult = ref(null);
+const searchResult = useLocalStorage('', "searchResult");
 const isLoading = ref(true);
 const error = ref(null);
 const route = useRoute();
+
 
 onMounted(() => {
   fetchNews(route.query.q || "");
@@ -14,9 +16,14 @@ onMounted(() => {
 
 const fetchNews = async (query) => {
   try {
+    if (searchResult.value) {
+      console.log('Using cached data');
+      isLoading.value = false;
+      return;
+    }
     //TODO: Refactor. Use Repository.
     let url = 'http://hn.algolia.com/api/v1/search?tags=(story,poll,job)';
-    if(query) {
+    if (query) {
       url += `&query=${query}`;
     }
     const response = await fetch(url);
@@ -34,6 +41,7 @@ const fetchNews = async (query) => {
 watch(
     () => route.query.q,
     (query) => {
+      isLoading.value = true;
       fetchNews(query);
     },
     {immediate: true}
@@ -44,7 +52,6 @@ watch(
   <div v-if="isLoading">Loading...</div>
   <div v-else-if="error">{{ error }}</div>
   <div v-else>
-
     <ArticleList :searchResult="searchResult"/>
   </div>
 </template>
